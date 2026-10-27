@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gesture Particles by panhathai</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <title>INSIGHT STAND</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -23,84 +22,47 @@
 
     #video { display: none; }
 
+    #brand {
+      position: fixed;
+      top: 24px; left: 28px;
+      z-index: 10;
+      pointer-events: none;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    #brand .name {
+      color: rgba(220, 235, 255, 0.88);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    #brand .tagline {
+      margin-top: 7px;
+      color: rgba(180, 210, 240, 0.58);
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 1.8px;
+      font-style: italic;
+    }
+
     #cam-overlay {
       position: fixed;
       bottom: 20px; right: 20px;
-      width: 200px; height: 150px;
-      border-radius: 10px;
+      width: 220px; height: 165px;
+      border-radius: 14px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.12);
-      z-index: 10;
-      background: #000;
+      border: 1px solid rgba(180, 220, 255, 0.24);
+      z-index: 30;
+      background: rgba(3, 8, 18, 0.92);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
     #cam-canvas {
       width: 100%; height: 100%;
       display: block;
       transform: scaleX(-1);
-    }
-
-    #brand {
-      position: fixed;
-      top: 24px; left: 28px;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    #brand .byline a {
-      pointer-events: auto;
-    }
-
-    #brand .title {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 3.5px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.82);
-      line-height: 1;
-    }
-
-    #brand .byline {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 9px;
-      font-weight: 300;
-      letter-spacing: 2px;
-      text-transform: lowercase;
-      color: rgba(255,255,255,0.52);
-      margin-top: 7px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    @keyframes subtleGlow {
-      0%, 100% { color: inherit; text-shadow: 0 0 2px rgba(180,220,255,0.0); }
-      50% { color: rgba(180,220,255,1); text-shadow: 0 0 12px rgba(180,220,255,0.6); }
-    }
-
-    #brand .byline a {
-      color: inherit;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.4s ease;
-      animation: subtleGlow 4s ease-in-out infinite;
-    }
-
-    #brand .byline a:last-child {
-      animation-delay: 2s;
-    }
-
-    #brand .byline a:hover {
-      animation: none;
-      color: rgba(180,220,255,1);
-      text-shadow: 0 0 16px rgba(180,220,255,0.9);
-    }
-
-    #brand .byline .sep {
-      color: rgba(255,255,255,0.40);
-      letter-spacing: 0;
     }
 
     #gesture-label {
@@ -133,14 +95,14 @@
 
     #guide {
       position: fixed;
-      bottom: 24px; left: 28px;
-      width: 286px;
-      padding: 14px;
+      bottom: 20px; left: 24px;
+      width: 252px;
+      padding: 10px;
       z-index: 10;
       user-select: none;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
       border: 1px solid rgba(180, 220, 255, 0.18);
       border-radius: 16px;
       background: linear-gradient(145deg, rgba(20, 31, 51, 0.72), rgba(4, 8, 18, 0.58));
@@ -152,9 +114,9 @@
     #guide .row {
       display: flex;
       align-items: center;
-      min-height: 31px;
-      gap: 9px;
-      padding: 4px 8px;
+      min-height: 27px;
+      gap: 7px;
+      padding: 3px 6px;
       border-radius: 9px;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       transition: background 0.25s ease, transform 0.25s ease;
@@ -168,8 +130,8 @@
     #guide .gesture-mark {
       display: grid;
       place-items: center;
-      width: 25px;
-      height: 25px;
+      width: 22px;
+      height: 22px;
       border-radius: 7px;
       background: rgba(180, 220, 255, 0.09);
       color: rgba(196, 224, 255, 0.82);
@@ -191,7 +153,8 @@
       letter-spacing: 1.8px;
       text-transform: uppercase;
       color: rgba(255,255,255,0.75);
-      width: 67px;
+      width: 61px;
+      white-space: nowrap;
     }
 
     #guide .arrow {
@@ -212,11 +175,11 @@
       #guide {
         bottom: 14px;
         left: 14px;
-        width: min(286px, calc(100vw - 28px));
+        width: min(252px, calc(100vw - 28px));
       }
 
       #guide .row {
-        min-height: 29px;
+        min-height: 27px;
       }
     }
   </style>
@@ -226,17 +189,13 @@
 <canvas id="main-canvas"></canvas>
 <video id="video" playsinline muted></video>
 
-<div id="cam-overlay">
-  <canvas id="cam-canvas"></canvas>
+<div id="brand">
+  <div class="name">Insight Research Club</div>
+  <div class="tagline">"where curiosity meets clarity"</div>
 </div>
 
-<div id="brand">
-  <div class="title">Interactive Experience</div>
-  <div class="byline">
-    <a href="https://github.com/ppongtong/gesture-particle" target="_blank" rel="noopener">by panhathai</a>
-    <span class="sep">·</span>
-    <a href="https://ai.google.dev/edge/mediapipe/solutions/guide" target="_blank" rel="noopener">using mediapipe</a>
-  </div>
+<div id="cam-overlay">
+  <canvas id="cam-canvas"></canvas>
 </div>
 
 <div id="gesture-label">·</div>
@@ -246,10 +205,8 @@
   <div class="row"><span class="gesture-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 11V7.5a1.5 1.5 0 0 1 3 0V11m0-1V5.5a1.5 1.5 0 0 1 3 0V11m0-1V7a1.5 1.5 0 0 1 3 0v5m0-1V9a1.5 1.5 0 0 1 3 0v5c0 3.9-2.7 6-6.5 6H10c-2.5 0-3.5-1.6-4.5-3.5L4 13a1.5 1.5 0 0 1 2.7-1.2L7 13"/></svg></span><span class="gesture-name">Fist</span><span class="arrow">→</span><span class="effect">Sphere</span></div>
   <div class="row"><span class="gesture-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 12V6a1.4 1.4 0 0 1 2.8 0v5m0 0V4.5a1.4 1.4 0 0 1 2.8 0V11m0 0V5.5a1.4 1.4 0 0 1 2.8 0V12m0 0V7.5a1.4 1.4 0 0 1 2.8 0V14c0 4-2.6 6-6.2 6H10c-2.5 0-3.8-1.7-4.5-3.6L4.4 13a1.4 1.4 0 0 1 2.6-1Z"/></svg></span><span class="gesture-name">Open</span><span class="arrow">→</span><span class="effect">Scatter</span></div>
   <div class="row"><span class="gesture-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V5m0 0L8.5 8.5M12 5l3.5 3.5"/><path d="M7 19h10"/></svg></span><span class="gesture-name">Point</span><span class="arrow">→</span><span class="effect">Vortex</span></div>
-  <div class="row"><span class="gesture-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v8m0-8 3 3m-3-3L5 8m8-3v8m0-8 3 3m-3-3-3 3M5 15l4 4m0 0 4-4m-4 4V9"/></svg></span><span class="gesture-name">Peace</span><span class="arrow">→</span><span class="effect">Wave</span></div>
-  <div class="row"><span class="gesture-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 17c3.5 0 5.5-2 7.5-5.5L16 7m0 0v5m0-5-5 1"/><path d="M5 18h5"/></svg></span><span class="gesture-name">Pinch</span><span class="arrow">→</span><span class="effect">Implode</span></div>
   <div class="row"><span class="gesture-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m0 0-5-5m5 5-5 5"/><path d="M5 7v10"/></svg></span><span class="gesture-name">Swipe</span><span class="arrow">→</span><span class="effect">Push</span></div>
-  <div class="row"><span class="gesture-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 11V5a1.5 1.5 0 0 1 3 0v6m0 0V3.5a1.5 1.5 0 0 1 3 0V12m0 0V6a1.5 1.5 0 0 1 3 0v8c0 3.8-2.6 6-6.2 6H10c-2.6 0-4.1-1.6-5-3.7L3.8 13a1.5 1.5 0 0 1 2.7-1.2L9 15"/></svg></span><span class="gesture-name">Thumb up</span><span class="arrow">→</span><span class="effect">Logo</span></div>
+  <div class="row"><span class="gesture-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 10v10h10.2a2 2 0 0 0 1.9-1.4l1.5-5A2 2 0 0 0 18.7 11H15l.7-3.2a2.3 2.3 0 0 0-4.2-1.7L8 10H7Z"/><path d="M7 10H4v10h3"/></svg></span><span class="gesture-name">Thumb up</span><span class="arrow">→</span><span class="effect">Logo</span></div>
 </div>
 
 <!-- MediaPipe globals (must load before module) -->
@@ -271,7 +228,7 @@ import * as THREE from 'three';
 // ─── Constants ────────────────────────────────────────────────────────────────
 // Tweak these to change the feel of the simulation.
 
-const N          = 10_000; // total number of particles
+const N          = 8_000; // total number of particles
 const SPRING_K   = 0.052;  // how strongly each particle is pulled toward its target (higher = snappier)
 const DAMPING    = 0.87;   // velocity multiplier each frame — slows particles down over time (lower = more drag)
 const NOISE      = 0.004;  // tiny random jitter added to velocity each frame so particles feel alive
@@ -281,8 +238,11 @@ const SCATTER_R  = 65;     // max radius particles fly out to in scatter mode
 const VORTEX_H   = 65;     // total height of the vortex tornado column
 const WAVE_SIZE  = 50;     // width and depth of the wave grid
 const LOGO_RES   = 260;    // resolution used to sample the logo image
-const LOGO_WIDTH = 70;     // width of the logo formation in world units
+const LOGO_WIDTH = 88;     // width of the logo formation in world units
 const LOGO_DEPTH = 12;     // maximum depth of the logo formation in world units
+const TRAIL_FADE = 0.72;   // how quickly the motion trail follows each particle
+const LOGO_POINT_SCALE = 0.88; // smaller logo dots leave breathing room between particles
+const LOGO_PARTICLE_RATIO = 0.46; // fraction of particles visible while showing the logo
 const GOLDEN     = (1 + Math.sqrt(5)) / 2; // golden ratio — used for Fibonacci sphere distribution
 
 // With FOV=60°, aspect 16/9, camera at z=80:
@@ -347,7 +307,7 @@ for (let i = 0; i < N; i++) {
   vel[i3+2] = (Math.random() - 0.5) * 0.4;
 
   hues[i] = Math.random();              // each particle gets a unique hue seed
-  sz[i]   = 1.8 + Math.random() * 3.2; // vary sizes for depth/texture
+  sz[i]   = 1.4 + Math.random() * 2.6; // vary smaller sizes for a lighter cloud
 
   // Default colour: deep blue
   col[i3]   = 0.1;
@@ -367,10 +327,17 @@ tgt.set(pos);
 
 const logoTgt = new Float32Array(N * 3); // sampled logo positions for idle mode
 const logoCol = new Float32Array(N * 3); // sampled logo colours for idle mode
+const logoVisible = new Float32Array(N); // sparse visibility mask used only by the logo
 let logoReady = false;                   // whether the logo image has finished sampling
 
 // Load the logo and convert its solid pixels into 3D particle targets.
 const logoImage = new Image();
+const logoUrl = new URL('./logo.png', import.meta.url);
+if (window.location.protocol === 'file:') {
+  console.error('Could not load logo.png: open this page through http://127.0.0.1:8000, not file://.');
+} else {
+  logoImage.crossOrigin = 'anonymous';
+}
 logoImage.onload = () => {
   const logoCanvas = document.createElement('canvas');
   logoCanvas.width = LOGO_RES;
@@ -379,7 +346,13 @@ logoImage.onload = () => {
   logoCtx.clearRect(0, 0, logoCanvas.width, logoCanvas.height);
   logoCtx.drawImage(logoImage, 0, 0, logoCanvas.width, logoCanvas.height);
 
-  const pixels = logoCtx.getImageData(0, 0, logoCanvas.width, logoCanvas.height);
+  let pixels;
+  try {
+    pixels = logoCtx.getImageData(0, 0, logoCanvas.width, logoCanvas.height);
+  } catch (error) {
+    console.error('Could not read logo.png pixels. Serve the project over HTTP instead of file://.', error);
+    return;
+  }
   const candidates = [];
   for (let y = 0; y < logoCanvas.height; y++) {
     for (let x = 0; x < logoCanvas.width; x++) {
@@ -429,18 +402,21 @@ logoImage.onload = () => {
     const y = (0.5 - sample.y / (logoCanvas.height - 1)) * LOGO_WIDTH;
     const depth = sample.edge ? LOGO_DEPTH : LOGO_DEPTH * 0.35;
 
-    logoTgt[i3]   = x + (Math.random() - 0.5) * 0.4;
-    logoTgt[i3+1] = y + (Math.random() - 0.5) * 0.4;
+    logoTgt[i3]   = x + (Math.random() - 0.5) * 0.22;
+    logoTgt[i3+1] = y + (Math.random() - 0.5) * 0.22;
     logoTgt[i3+2] = (Math.random() - 0.5) * depth
       + (sample.luminance - 0.5) * LOGO_DEPTH * 0.6;
-    logoCol[i3]   = sample.r;
-    logoCol[i3+1] = sample.g;
-    logoCol[i3+2] = sample.b;
+    logoCol[i3]   = Math.min(1, sample.luminance * 0.015);
+    logoCol[i3+1] = Math.min(1, 0.035 + sample.luminance * 0.18);
+    logoCol[i3+2] = Math.min(1, 0.68 + sample.luminance * 0.32);
+    logoVisible[i] = i / N < LOGO_PARTICLE_RATIO ? 1 : 0;
   }
+  geo.attributes.aLogoVisible.needsUpdate = true;
+  trailGeo.attributes.aLogoVisible.needsUpdate = true;
   logoReady = true;
 };
-logoImage.onerror = () => console.error('Could not load logo.png');
-logoImage.src = 'logo.png';
+logoImage.onerror = () => console.error('Could not load logo.png', logoUrl.href);
+if (window.location.protocol !== 'file:') logoImage.src = logoUrl.href;
 
 // ─── Three.js Geometry & Shader ───────────────────────────────────────────────
 // We use a custom ShaderMaterial so we can write our own GLSL — this gives us
@@ -451,23 +427,37 @@ const geo = new THREE.BufferGeometry();
 geo.setAttribute('position', new THREE.BufferAttribute(pos, 3).setUsage(THREE.DynamicDrawUsage));
 geo.setAttribute('aColor',   new THREE.BufferAttribute(col, 3).setUsage(THREE.DynamicDrawUsage));
 geo.setAttribute('aSize',    new THREE.BufferAttribute(sz,  1)); // size never changes, no hint needed
+geo.setAttribute('aLogoVisible', new THREE.BufferAttribute(logoVisible, 1));
+
+const trailPos = new Float32Array(N * 3); // delayed particle positions used for motion trails
+trailPos.set(pos);
+const trailGeo = new THREE.BufferGeometry();
+trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPos, 3).setUsage(THREE.DynamicDrawUsage));
+trailGeo.setAttribute('aColor', new THREE.BufferAttribute(col, 3).setUsage(THREE.DynamicDrawUsage));
+trailGeo.setAttribute('aSize', new THREE.BufferAttribute(sz, 1));
+trailGeo.setAttribute('aLogoVisible', new THREE.BufferAttribute(logoVisible, 1));
 
 // VERTEX SHADER — runs once per particle on the GPU.
 // Converts 3D world position to 2D screen position and sets the point sprite size.
 const vertexShader = /* glsl */ `
   attribute vec3  aColor; // colour passed in from the CPU
   attribute float aSize;  // base size passed in from the CPU
+  attribute float aLogoVisible; // sparse logo mask, ignored in other formations
+  uniform float uSizeScale; // formation-specific scale keeps the dot cloud airy
+  uniform float uLogoMode; // enables the sparse mask only for the logo
+  varying   float vLogoVisible;
   varying   vec3  vColor; // passed through to the fragment shader
 
   void main() {
     vColor = aColor;
+    vLogoVisible = aLogoVisible;
 
     // Transform the particle's 3D position into camera (view) space
     vec4 mv = modelViewMatrix * vec4(position, 1.0);
 
     // Scale point size by distance: farther away = smaller sprite (perspective effect)
     // The 320.0 constant controls the overall size at a reference distance
-    gl_PointSize = aSize * (320.0 / -mv.z);
+    gl_PointSize = aSize * uSizeScale * (320.0 / -mv.z);
 
     // Final clip-space position used by the GPU to place the point on screen
     gl_Position  = projectionMatrix * mv;
@@ -478,8 +468,11 @@ const vertexShader = /* glsl */ `
 // Draws a glowing soft circle instead of a hard square.
 const fragmentShader = /* glsl */ `
   varying vec3 vColor;
+  varying float vLogoVisible;
+  uniform float uLogoMode;
 
   void main() {
+    if (uLogoMode > 0.5 && vLogoVisible < 0.5) discard;
     // gl_PointCoord is (0,0) at top-left and (1,1) at bottom-right of the sprite square.
     // Subtracting 0.5 re-centres it so (0,0) is the middle of the sprite.
     vec2  uv   = gl_PointCoord - 0.5;
@@ -503,6 +496,10 @@ const fragmentShader = /* glsl */ `
 const mat = new THREE.ShaderMaterial({
   vertexShader,
   fragmentShader,
+  uniforms: {
+    uSizeScale: { value: 0.88 },
+    uLogoMode: { value: 0 },
+  },
   blending:   THREE.AdditiveBlending, // overlapping particles ADD their colours together → natural glow
   depthWrite: false,                  // don't write to depth buffer — prevents particles clipping each other
   transparent: true,
@@ -510,6 +507,11 @@ const mat = new THREE.ShaderMaterial({
 
 const points = new THREE.Points(geo, mat);
 scene.add(points);
+const trailMat = mat.clone();
+trailMat.uniforms.uSizeScale.value = 0.88;
+trailMat.opacity = 0.22;
+const trails = new THREE.Points(trailGeo, trailMat);
+scene.add(trails);
 
 // ─── State ────────────────────────────────────────────────────────────────────
 
@@ -520,6 +522,11 @@ let handVisible  = false;   // whether MediaPipe found a hand this frame
 let time         = 0;       // elapsed time in seconds (incremented each frame)
 let swipeX       = 0;       // horizontal swipe impulse — decays to 0 over ~10 frames
 let swipeY       = 0;       // vertical swipe impulse
+let swipePulse   = 0;       // temporary shockwave brightness from a detected swipe
+let logoReveal   = 0;       // 0 = dispersed, 1 = fully revealed
+let pinchAmount  = 0;       // 0 = open, 1 = fully pinched
+let pinchDistance = 1;      // latest thumb-to-index distance from MediaPipe
+let transitionGlow = 0;     // brief glow pulse when a formation changes
 
 // Gesture stabilisation: only switch gesture after it holds for STAB consecutive frames.
 // This prevents the display flickering when the hand is between two poses.
@@ -575,26 +582,47 @@ function updateColors() {
 }
 
 function writeLogoTargets(t) {
-  const a = Math.sin(t * 0.4) * 0.5;
-  const sinA = Math.sin(a);
-  const cosA = Math.cos(a);
-  const bob = Math.sin(t * 1.1) * 1.2;
+  const reveal = mode === 'logo' ? logoReveal : 1;
+  const breathing = 1 + Math.sin(t * 1.5) * 0.045;
+
+  if (mode === 'logo') logoReveal += (1 - logoReveal) * 0.018;
 
   for (let i = 0; i < N; i++) {
     const i3 = i * 3;
-    const x = logoTgt[i3];
-    const z = logoTgt[i3+2];
-    tgt[i3]   = x * cosA + z * sinA;
-    tgt[i3+1] = logoTgt[i3+1] + bob;
-    tgt[i3+2] = -x * sinA + z * cosA;
+    const x = logoTgt[i3] * breathing * reveal;
+    const y = logoTgt[i3+1] * breathing * reveal;
+    const z = logoTgt[i3+2] * breathing * reveal;
+    tgt[i3]   = x;
+    tgt[i3+1] = y;
+    tgt[i3+2] = z;
+
+    // Pinching compresses the logo toward its centre and releasing it lets it bloom back out.
+    if (pinchAmount > 0) {
+      tgt[i3] *= 1 - pinchAmount * 0.82;
+      tgt[i3+1] *= 1 - pinchAmount * 0.82;
+      tgt[i3+2] *= 1 - pinchAmount * 0.55;
+    }
   }
 }
 
 function updateLogoColors() {
+  const lightX = handVisible ? handX / HAND_SCALE_X : 0;
+  const lightY = handVisible ? handY / HAND_SCALE_Y : 0;
+
   for (let i = 0; i < N * 3; i++) {
     col[i] += (logoCol[i] - col[i]) * 0.05;
   }
+  for (let i = 0; i < N; i++) {
+    const i3 = i * 3;
+    const dx = logoTgt[i3] / LOGO_WIDTH - lightX;
+    const dy = logoTgt[i3+1] / LOGO_WIDTH - lightY;
+    const highlight = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) * 2.4) * 0.45;
+    col[i3] = Math.min(1, col[i3] + highlight * 0.02);
+    col[i3+1] = Math.min(1, col[i3+1] + highlight * 0.12);
+    col[i3+2] = Math.min(1, col[i3+2] + highlight * 0.9);
+  }
   geo.attributes.aColor.needsUpdate = true;
+  trailGeo.attributes.aColor.needsUpdate = true;
 }
 
 // ─── Formation Target Setters ─────────────────────────────────────────────────
@@ -603,6 +631,8 @@ function updateLogoColors() {
 // for scatter mode, pre-randomises the target positions.
 function setMode(newMode) {
   if (newMode === mode) return; // no change — bail early
+  if (newMode === 'logo') logoReveal = 0;
+  transitionGlow = 1;
   mode = newMode;
 
   // Each mode gets a distinct colour palette (HSL, all values 0–1)
@@ -766,6 +796,9 @@ function stepPhysics() {
     // spread out organically rather than all moving at exactly the same speed
     vel[i3]   += swipeX * (0.7 + hues[i] * 0.6);
     vel[i3+1] += swipeY * (0.7 + hues[i] * 0.6);
+    const distance = Math.sqrt(pos[i3] * pos[i3] + pos[i3+1] * pos[i3+1]) + 0.001;
+    vel[i3]   += (pos[i3] / distance) * swipePulse * 0.12;
+    vel[i3+1] += (pos[i3+1] / distance) * swipePulse * 0.12;
 
     // Micro-turbulence: tiny random nudge each frame keeps particles feeling alive
     vel[i3]   += (Math.random() - 0.5) * NOISE;
@@ -782,14 +815,20 @@ function stepPhysics() {
     pos[i3]   += vel[i3];
     pos[i3+1] += vel[i3+1];
     pos[i3+2] += vel[i3+2];
+    trailPos[i3] += (pos[i3] - trailPos[i3]) * TRAIL_FADE;
+    trailPos[i3+1] += (pos[i3+1] - trailPos[i3+1]) * TRAIL_FADE;
+    trailPos[i3+2] += (pos[i3+2] - trailPos[i3+2]) * TRAIL_FADE;
   }
 
   // Decay swipe impulse — each frame it shrinks to 82% of its previous value
   swipeX *= 0.82;
   swipeY *= 0.82;
+  swipePulse *= 0.88;
+  transitionGlow *= 0.94;
 
   // Tell Three.js the positions have changed so it re-uploads the buffer to the GPU
   geo.attributes.position.needsUpdate = true;
+  trailGeo.attributes.position.needsUpdate = true;
 }
 
 // ─── Gesture Detection ────────────────────────────────────────────────────────
@@ -808,7 +847,8 @@ function detectGesture(lm) {
   // Pinch: check if thumb tip (4) and index tip (8) are very close together
   const tx = lm[4].x - lm[8].x;
   const ty = lm[4].y - lm[8].y;
-  if (Math.sqrt(tx * tx + ty * ty) < 0.06) return 'pinch'; // 0.06 = ~6% of frame width
+  pinchDistance = Math.sqrt(tx * tx + ty * ty);
+  if (pinchDistance < 0.06) return 'pinch'; // 0.06 = ~6% of frame width
 
   // Check each finger: tip landmark index, PIP joint landmark index
   const idx  = isExtended(lm, 8,  6);  // index finger
@@ -836,6 +876,22 @@ const labelEl   = document.getElementById('gesture-label');
 const camCanvas = document.getElementById('cam-canvas');
 const camCtx    = camCanvas.getContext('2d');
 const videoEl   = document.getElementById('video');
+let lastCameraResult = 0;
+
+function drawCameraPreview() {
+  if (videoEl.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA
+      && performance.now() - lastCameraResult > 250) {
+    if (camCanvas.width !== videoEl.videoWidth || camCanvas.height !== videoEl.videoHeight) {
+      camCanvas.width = videoEl.videoWidth || 640;
+      camCanvas.height = videoEl.videoHeight || 480;
+    }
+    camCtx.globalAlpha = 0.75;
+    camCtx.drawImage(videoEl, 0, 0, camCanvas.width, camCanvas.height);
+    camCtx.globalAlpha = 1;
+  }
+  requestAnimationFrame(drawCameraPreview);
+}
+drawCameraPreview();
 
 const GESTURE_LABEL = {
   fist:    'SPHERE',
@@ -863,6 +919,7 @@ const GESTURE_MODE = {
 // swipe detection, and gesture classification.
 
 function onHandResults(results) {
+  lastCameraResult = performance.now();
   const W = results.image.width;
   const H = results.image.height;
   // Resize the overlay canvas to match the video resolution
@@ -879,6 +936,7 @@ function onHandResults(results) {
   // No hand detected — reset to idle and clear the gesture label
   if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
     handVisible = false;
+    pinchAmount = 0;
     setMode('idle');
     labelEl.textContent = '·';
     labelEl.style.color = 'rgba(255,255,255,0.4)';
@@ -924,6 +982,7 @@ function onHandResults(results) {
       // Convert to directional impulse and add to the decaying swipe state
       swipeX += (vx / speed) * speed * 0.18;
       swipeY += (vy / speed) * speed * 0.12;
+      swipePulse = Math.min(1, swipePulse + speed * 0.025);
 
       // Show a directional arrow label — whichever axis has more movement wins
       const dir = Math.abs(vx) > Math.abs(vy)
@@ -937,6 +996,7 @@ function onHandResults(results) {
 
   // ── Gesture classification with stabilisation ──
   const g = detectGesture(lm);
+  pinchAmount += (Math.max(0, 1 - pinchDistance / 0.18) - pinchAmount) * 0.3;
 
   if (g === prevGesture) {
     stabCount++; // same gesture again — increment stability counter
@@ -958,19 +1018,11 @@ function onHandResults(results) {
 
 // ─── MediaPipe Init ───────────────────────────────────────────────────────────
 // Sets up the MediaPipe Hands pipeline and connects it to the webcam.
-// Must be async because getUserMedia() requires a Promise.
+// Must be async because the MediaPipe camera startup requires a Promise.
 
 async function initMediaPipe() {
   statusEl.textContent   = 'REQUESTING CAMERA';
   statusEl.style.opacity = '1';
-
-  // Ask the browser for webcam access — this triggers the permission popup
-  try {
-    await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, facingMode: 'user' } });
-  } catch (err) {
-    statusEl.textContent = 'CAMERA DENIED — RELOAD & ALLOW ACCESS';
-    return;
-  }
 
   statusEl.textContent = 'LOADING MODEL';
 
@@ -1097,6 +1149,7 @@ function animate() {
   // Gently rock the camera around the scene centre for a subtle 3D parallax feel
   camera.position.x = Math.sin(camAngle) * 3;
   camera.position.y = Math.cos(camAngle * 0.7) * 1.5;
+  camera.position.z = CAM_Z - transitionGlow * 2.5;
   camera.lookAt(0, 0, 0);
 
   // When no hand is detected, drift the formation centre back toward the origin
@@ -1109,6 +1162,12 @@ function animate() {
   stepPhysics();       // move particles toward their targets via spring physics
   if ((mode === 'idle' || mode === 'logo') && logoReady) updateLogoColors();
   else                              updateColors();
+  const dotScale = (mode === 'idle' || mode === 'logo') ? LOGO_POINT_SCALE : 0.88;
+  mat.uniforms.uSizeScale.value = dotScale;
+  trailMat.uniforms.uSizeScale.value = dotScale;
+  mat.uniforms.uLogoMode.value = mode === 'idle' || mode === 'logo' ? 1 : 0;
+  trailMat.uniforms.uLogoMode.value = mode === 'idle' || mode === 'logo' ? 1 : 0;
+  trails.material.opacity = 0.12 + Math.min(0.2, swipePulse * 0.16);
 
   // Modulate audio filter and theremin based on hand movement / swipe energy
   if (synthStarted && synthFilter && audioCtx.state === 'running') {
